@@ -1,0 +1,43 @@
+{
+  "name": "react_flux_tutorial",
+  "version": "1.0.0",
+  "description": "##  react and flux tutorial using babel and webpack",
+  "main": "main.js",
+  "scripts": {
+    "start": "npm run build && npm run dev-server",
+    "build": "webpack",
+    "dev-server": "http-server -p 3001 dist/"
+  },
+  "author": "TarCode",
+  "dependencies": {
+    "axios": "^0.4.2",
+    "events": "^1.0.2",
+    "flux": "^2.0.1",
+    "history": "^1.17.0",
+    "react": "^0.14.3",
+    "react-addons-create-fragment": "^0.14.6",
+    "react-bootstrap": "^0.28.2",
+    "react-dom": "^0.14.3",
+    "react-lazy-load": "^3.0.0",
+    "react-router": "^1.0.2",
+    "superagent": "^1.6.1",
+    "webpack-dev-server": "^1.14.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.3.17",
+    "babel-loader": "^6.2.0",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "webpack": "^1.12.9",
+    "http-server": "^0.8.0"
+  },
+  "keywords": [
+    "react",
+    "flux",
+    "javascript",
+    "webpack",
+    "babel",
+    "node"
+  ],
+  "license": "ISC"
+}
