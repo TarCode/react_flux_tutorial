@@ -7,15 +7,10 @@
  ******************************************************************************************************/
 import React from 'react';
 import { Link } from 'react-router';
-export default class Home extends React.Component {
 
+export default class Home extends React.Component {
   constructor(props) {
     super( props );
-  }
-
-  // This will be called when the user clicks on the login button
-  login(e) {
-    e.preventDefault();
   }
 
   render() {
@@ -23,7 +18,7 @@ export default class Home extends React.Component {
       <div className="container text-center">
         <div className="home-login">
           <h1>Enter the tutorial</h1>
-          <Link to={'/dashboard/test'} className="btn btn-default btn-block">TEST</Link>
+          <Link to={'/dashboard/test'} className="btn btn-default btn-block">Enter</Link>
           <hr></hr>
         </div>
       </div>

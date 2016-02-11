@@ -15,9 +15,9 @@ export default class Dashboard extends React.Component {
 
   constructor(props) {
     super( props );
-    this.addFinalResult = this.addFinalResult.bind(this);
+    this.addThingFromComponent = this.addThingFromComponent.bind(this);
     this._onChange = this._onChange.bind(this);
-    this.deleteFinalResult = this.deleteFinalResult.bind(this);
+    this.deleteThingFromComponent = this.deleteThingFromComponent.bind(this);
     var finalData = appStore.getList();
     console.log("dashboard", finalData);
     this.state = {finalCounts: []};
@@ -37,12 +37,12 @@ export default class Dashboard extends React.Component {
   }
 
 
-  addFinalResult() {
-    var party = document.getElementById('partyName').value;
-    var count = document.getElementById('partyCount').value;
+  addThingFromComponent() {
+    var thing = document.getElementById('thingName').value;
+    var count = document.getElementById('thingCount').value;
     var add = true;
     for (let x = 0; x < this.state.finalCounts.length; x++) {
-      if (this.state.finalCounts[x].party === party) {
+      if (this.state.finalCounts[x].thing === thing) {
         add = false;
         break;
       } else {
@@ -55,7 +55,7 @@ export default class Dashboard extends React.Component {
       } else {
         viewActions.addThing(
           {
-            party: party,
+            thing: thing,
             count: count
           }
         );
@@ -63,20 +63,12 @@ export default class Dashboard extends React.Component {
         console.log(this.state.finalCounts);
       }
     } else {
-      window.alert("Party already exists");
+      window.alert("thing already exists");
     }
   }
 
-  deleteFinalResult(index) {
+  deleteThingFromComponent(index) {
     viewActions.removeThing(index);
-  }
-
-  postFinalResult() {
-    var data = {};
-    data['event_type'] = 'final';
-    data['finalCounts'] = this.state.finalCounts;
-    data['vd_id'] = this.props.params.vd_id;
-    viewActions.postCountData(data);
   }
 
   render() {
@@ -116,7 +108,7 @@ export default class Dashboard extends React.Component {
     return (
         <div className="container">
           <div className="home-login" style={boxStyle}>
-            <small style={smallStyle}>Name: {this.props.params.vd_id}</small>
+            <small style={smallStyle}>Name: {this.props.params.thing}</small>
             <Link to={'/'} style={backBtnStyle} className="btn btn-default">BACK</Link>
             <hr/>
             <Tabs defaultActiveKey={1}>
@@ -126,24 +118,24 @@ export default class Dashboard extends React.Component {
                       <p>This tutorial serves to better your understanding of how React and Flux fit together. Click the next tab to see the magic.</p>
                   </div>
                 </Tab>
-                <Tab eventKey={2} title="Party Prices">
+                <Tab eventKey={2} title="thing Prices">
                 <br></br>
                 <div className="box">
                   <table className="table table-bordered text-center" style={tableStyle}>
                     <thead>
                       <tr>
-                         <th className="text-center">Party</th>
-                         <th className="text-center">Ticket Price</th>
+                         <th className="text-center">thing</th>
+                         <th className="text-center">count</th>
                          <th></th>
                       </tr>
                      </thead>
 
                      <tbody>
                      {this.state.finalCounts.map(function(item, index) {
-                       var boundDelete = this.deleteFinalResult.bind(this, index);
+                       var boundDelete = this.deleteThingFromComponent.bind(this, index);
                          return (
                            <tr key={index}>
-                             <td>{item.party}</td>
+                             <td>{item.thing}</td>
                              <td>{item.count}</td>
                              <td className="col-xs-2"><button style={backBtnStyle} onClick={boundDelete} className="btn btn-danger" >Remove</button></td>
                            </tr>
@@ -154,20 +146,17 @@ export default class Dashboard extends React.Component {
                   </table>
                 </div>
                 <div className="col-xs-4">
-                  <Input id="partyName" className="partyChooser" type="select" placeholder="select" >
-                    <option value="Origin">Origin</option>
-                    <option value="Masqued Ball">Masqued Ball</option>
-                    <option value="Vortex">Vortex</option>
-                    <option value="Love Project">Love Project</option>
+                  <Input id="thingName" className="thingChooser" type="select" placeholder="select" >
+                    <option value="thing1">thing1</option>
+                    <option value="thing2">thing2</option>
                   </Input>
                 </div>
                 <div className="col-xs-4">
-                  <Input id="partyCount" className="partyChooser" defaultValue={0} type="number"/>
+                  <Input id="thingCount" className="thingChooser" defaultValue={0} type="number"/>
                 </div>
                 <div className="col-xs-4">
-                  <button type="button" className="btn btn-default btn-block btn-sm" onClick={ this.addFinalResult }><i className="fa fa-plus"></i> Add</button>
+                  <button type="button" className="btn btn-default btn-block btn-sm" onClick={ this.addThingFromComponent }><i className="fa fa-plus"></i> Add</button>
                 </div>
-                <button type="button" className="btn btn-default btn-block btn-sm" onClick={ this.postFinalResult }><i className="fa fa-upload"></i> Submit</button>
               </Tab>
             </Tabs>
           </div>

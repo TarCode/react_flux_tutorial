@@ -17,7 +17,7 @@ export default () => {
 		<Router>
 			<Route path="/" component={ Template }>
 				<IndexRoute component={ Home }/>
-				<Route name="dashboard" path="/dashboard/:vd_id" component={ Dashboard }/>
+				<Route name="dashboard" path="/dashboard/:param" component={ Dashboard }/>
 			</Route>
 		</Router>
 	)

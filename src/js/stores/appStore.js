@@ -38,7 +38,7 @@ AppDispatcher.register(function(payload) {
 
     case appConstants.ADD_THING:
       var data = action.data;
-      _store.finalCounts.push({party: data.party, count: data.count})
+      _store.finalCounts.push({thing: data.thing, count: data.count})
       appStore.emit(CHANGE_EVENT);
       break;
 
