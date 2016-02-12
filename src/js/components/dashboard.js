@@ -20,11 +20,11 @@ export default class Dashboard extends React.Component {
     this.deleteThingFromComponent = this.deleteThingFromComponent.bind(this);
     var finalData = appStore.getList();
     console.log("dashboard", finalData);
-    this.state = {finalCounts: []};
+    this.state = {thingList: []};
   }
 
   componentDidMount() {
-    // viewActions.getFinalCounts(this.props.params.yourParam);   <-Use that to get the retrieved API data from the store
+    // viewActions.getthingList(this.props.params.yourParam);   <-Use that to get the retrieved API data from the store
     appStore.addChangeListener(this._onChange);
   }
 
@@ -41,8 +41,8 @@ export default class Dashboard extends React.Component {
     var thing = document.getElementById('thingName').value;
     var count = document.getElementById('thingCount').value;
     var add = true;
-    for (let x = 0; x < this.state.finalCounts.length; x++) {
-      if (this.state.finalCounts[x].thing === thing) {
+    for (let x = 0; x < this.state.thingList.length; x++) {
+      if (this.state.thingList[x].thing === thing) {
         add = false;
         break;
       } else {
@@ -60,7 +60,7 @@ export default class Dashboard extends React.Component {
           }
         );
         window.alert("added");
-        console.log(this.state.finalCounts);
+        console.log(this.state.thingList);
       }
     } else {
       window.alert("thing already exists");
@@ -73,94 +73,49 @@ export default class Dashboard extends React.Component {
 
   render() {
 
-    var titleStyle = {
-      fontSize: 16,
-      textTransform: "uppercase",
-      fontFamily: "Montserrat,Helvetica Neue,Helvetica,Arial,sans-serif",
-      color: '#ffffff',
-      marginBottom: 25
-    }
-
-    var smallStyle = {
-      textTransform: "uppercase",
-      color: '#ffffff',
-      display:"block"
-    }
-
-    var boxStyle = {
-      paddingTop: 45,
-      paddingBottom: 45
-    }
-
-    var labelStyle = {
-      color: "#ffffff",
-    }
-    var backBtnStyle = {
-      float: "right",
-      paddingTop: "5px",
-      paddingBottom: "5px",
-      marginBottom: "5px"
-    }
-    var tableStyle = {
-      backgroundColor: '#fff'
-    }
-
     return (
-        <div className="container">
-          <div className="home-login" style={boxStyle}>
-            <small style={smallStyle}>Name: {this.props.params.thing}</small>
-            <Link to={'/'} style={backBtnStyle} className="btn btn-default">BACK</Link>
-            <hr/>
-            <Tabs defaultActiveKey={1}>
-              <Tab eventKey={1} title="About" tabClassName="btn-default">
-                <br></br>
-                  <div id="child-page-items" className="list-group">
-                      <p>This tutorial serves to better your understanding of how React and Flux fit together. Click the next tab to see the magic.</p>
-                  </div>
-                </Tab>
-                <Tab eventKey={2} title="thing Prices">
-                <br></br>
-                <div className="box">
-                  <table className="table table-bordered text-center" style={tableStyle}>
-                    <thead>
-                      <tr>
-                         <th className="text-center">thing</th>
-                         <th className="text-center">count</th>
-                         <th></th>
-                      </tr>
-                     </thead>
+      <div className="container">
+      <br></br>
+        <div className="home-login">
+        <small>Params passed into props.params: {this.props.params.thing}</small>
+          <hr/>
+          <Link to={'/'} className="btn btn-block btn-default">BACK</Link>
+          <hr/>
+          <div className="box">
+            <table className="table table-bordered text-center">
+              <thead>
+                <tr>
+                   <th className="text-center">Thing</th>
+                   <th className="text-center">Count</th>
+                   <th></th>
+                </tr>
+               </thead>
 
-                     <tbody>
-                     {this.state.finalCounts.map(function(item, index) {
-                       var boundDelete = this.deleteThingFromComponent.bind(this, index);
-                         return (
-                           <tr key={index}>
-                             <td>{item.thing}</td>
-                             <td>{item.count}</td>
-                             <td className="col-xs-2"><button style={backBtnStyle} onClick={boundDelete} className="btn btn-danger" >Remove</button></td>
-                           </tr>
-                         )
-                       }, this)}
-                     </tbody>
-
-                  </table>
-                </div>
-                <div className="col-xs-4">
-                  <Input id="thingName" className="thingChooser" type="select" placeholder="select" >
-                    <option value="thing1">thing1</option>
-                    <option value="thing2">thing2</option>
-                  </Input>
-                </div>
-                <div className="col-xs-4">
-                  <Input id="thingCount" className="thingChooser" defaultValue={0} type="number"/>
-                </div>
-                <div className="col-xs-4">
-                  <button type="button" className="btn btn-default btn-block btn-sm" onClick={ this.addThingFromComponent }><i className="fa fa-plus"></i> Add</button>
-                </div>
-              </Tab>
-            </Tabs>
+               <tbody>
+               {this.state.thingList.map(function(item, index) {
+                 var boundDelete = this.deleteThingFromComponent.bind(this, index);
+                   return (
+                     <tr key={index}>
+                       <td>{item.thing}</td>
+                       <td>{item.count}</td>
+                       <td className="col-xs-2"><button onClick={boundDelete} className="btn btn-danger" >Remove</button></td>
+                     </tr>
+                   )
+                 }, this)}
+               </tbody>
+            </table>
+          </div>
+          <div className="col-xs-4">
+            <Input id="thingName" className="thingChooser" type="text" placeholder="thing" />
+          </div>
+          <div className="col-xs-4">
+            <Input id="thingCount" className="thingChooser" defaultValue={0} type="number"/>
+          </div>
+          <div className="col-xs-4">
+            <button type="button" className="btn btn-default btn-block btn-sm" onClick={ this.addThingFromComponent }><i className="fa fa-plus"></i> Add</button>
           </div>
         </div>
+      </div>
     );
   }
 }

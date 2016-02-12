@@ -15,7 +15,7 @@ var EventEmitter = require('events').EventEmitter;
 var CHANGE_EVENT = 'change';
 
 var _store = {
-  finalCounts: []
+  thingList: []
 };
 
 var appStore = objectAssign({}, EventEmitter.prototype, {
@@ -38,13 +38,13 @@ AppDispatcher.register(function(payload) {
 
     case appConstants.ADD_THING:
       var data = action.data;
-      _store.finalCounts.push({thing: data.thing, count: data.count})
+      _store.thingList.push({thing: data.thing, count: data.count})
       appStore.emit(CHANGE_EVENT);
       break;
 
     case appConstants.REMOVE_THING:
       var data = action.data;
-      _store.finalCounts.splice(data.index, 1);
+      _store.thingList.splice(data.index, 1);
       appStore.emit(CHANGE_EVENT);
       break;
 
